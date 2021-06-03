@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.max.myfirstadmob">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
             android:allowBackup="true"
             android:icon="@drawable/ic_launcher"
@@ -8,6 +12,10 @@
             android:appCategory="game"
             android:label="@string/app_name"
             android:theme="@style/GdxTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6349723748204659~3435396448"/>
         <activity
                 android:name="com.max.myfirstadmob.AndroidLauncher"
                 android:label="@string/app_name"
