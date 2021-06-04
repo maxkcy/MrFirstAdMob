@@ -19,6 +19,15 @@ public class MyFirstAdMobMain extends ApplicationAdapter {
 	float x , y;
 	OrthographicCamera cam;
 	Viewport viewPort;
+	IActivityRequestHandler myRequestHandler;
+
+	public MyFirstAdMobMain(IActivityRequestHandler myRequestHandler) {
+		this.myRequestHandler = myRequestHandler;
+	}
+
+	public MyFirstAdMobMain() {
+	}
+
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
@@ -37,7 +46,8 @@ public class MyFirstAdMobMain extends ApplicationAdapter {
 	}
 
 
-
+	boolean showingads = true;
+	boolean click;
 	@Override
 	public void render() {
 		Gdx.gl.glClearColor(.111f, .222f, .333f, .444f);
@@ -57,6 +67,26 @@ public class MyFirstAdMobMain extends ApplicationAdapter {
 		sprite.setPosition(x, y);
 		sprite.draw(batch);
 		batch.end();
+
+
+		if (Gdx.input.isTouched()){
+			if (!click){
+				if(showingads){
+					showingads = false;
+					myRequestHandler.showAds(showingads);
+				}else{
+					showingads = true;
+					myRequestHandler.showAds(showingads);
+				}
+				//justTouched
+				click = true;
+			}
+		}
+
+		if(!Gdx.input.isTouched() && click){
+			//justUnTouched
+			click = false;
+		}
 	}
 
 	@Override
