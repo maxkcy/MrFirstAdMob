@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -43,11 +45,13 @@ public class MyFirstAdMobMain extends ApplicationAdapter {
 		y = viewPort.getWorldHeight()/2 - (sprite.getHeight())*sprite.getScaleY()/2;
 		background = new Sprite(new Texture(Gdx.files.internal("background.jpg")));
 		background.setBounds(0, 0, viewPort.getWorldWidth(), viewPort.getWorldHeight());
+		Gdx.app.error(this.toString(), "Testing Error");
 	}
 
 
 	boolean showingads = true;
 	boolean click;
+	Vector2 touch = new Vector2();
 	@Override
 	public void render() {
 		Gdx.gl.glClearColor(.111f, .222f, .333f, .444f);
@@ -79,6 +83,7 @@ public class MyFirstAdMobMain extends ApplicationAdapter {
 					myRequestHandler.showAds(showingads);
 				}
 				//justTouched
+				touch = viewPort.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 				click = true;
 			}
 		}
@@ -87,6 +92,11 @@ public class MyFirstAdMobMain extends ApplicationAdapter {
 			//justUnTouched
 			click = false;
 		}
+
+		if(sprite.getBoundingRectangle().contains(touch.x, touch.y)){
+			myRequestHandler.showInterstitial();
+		}
+
 	}
 
 	@Override
